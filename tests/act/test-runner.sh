@@ -72,7 +72,7 @@ function run_test() {
 	start_$2 "${URL}" 2
 	browser_pid_2=$!
 
-	node ~/Desktop/Node/node.js
+  node requestserver/client/node.js
 	kill $browser_pid_1 2>/dev/null
 	kill $browser_pid_2 2>/dev/null
 }
