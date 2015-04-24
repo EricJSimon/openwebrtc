@@ -1,0 +1,3 @@
+*.log
+FirefoxTestProfile.default/*
+!FirefoxTestProfile.default/user.js
