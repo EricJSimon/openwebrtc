@@ -7,7 +7,6 @@ if (isMozilla) {
     window.RTCIceCandidate = window.mozRTCIceCandidate;
 }
 
-var selfView;
 var remoteView;
 var callButton;
 var audioCheckBox;
@@ -41,11 +40,7 @@ var configuration = {
   ]
 };
 
-document.write("Today is " + startup_time.getMonth() + 1 + "/" + startup_time.getDate() + "/" + startup_time.getFullYear() + "\n");
-document.write("Time " + startup_time.getHours() + ":" +  startup_time.getMinutes() + ":" + startup_time.getSeconds());
-
 window.onload = function () {
-    selfView = document.getElementById("self_view");
     remoteView = document.getElementById("remote_view");
     callButton = document.getElementById("call_but");
     var joinButton = document.getElementById("join_but");
@@ -134,8 +129,6 @@ window.onload = function () {
             // get a local stream
             navigator.webkitGetUserMedia({ "audio": audioCheckBox.checked,
                 "video": videoCheckBox.checked}, function (stream) {
-                // .. show it in a self-view
-                selfView.src = URL.createObjectURL(stream);
                 // .. and keep it to be sent later
                 localStream = stream;
 
@@ -143,8 +136,6 @@ window.onload = function () {
                 chatButton.disabled = true;
 
                 if (videoCheckBox.checked)
-                    selfView.style.visibility = "visible";
-                else if (audioCheckBox.checked && !(chatCheckBox.checked))
                     audioOnlyView.style.visibility = "visible";
 
                 peerJoin();
@@ -266,10 +257,6 @@ window.onorientationchange = function () {
     if (peer)
         sendOrientationUpdate();
 
-    if (selfView) {
-        var transform = "rotate(" + (window.orientation + 90) + "deg)";
-        selfView.style.transform = selfView.style.webkitTransform = transform;
-    }
 };
 
 function logError(error) {
